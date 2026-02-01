@@ -121,24 +121,32 @@ public class RenderEvents {
         if (entity == minecraft.player) {
             return;
         }
+        if (minecraft.player != null) {
+            if (minecraft.player.getTeam() != null) {
+                if (minecraft.player.getTeam() != entity.getTeam()) {
+                    return;
+                }
+            }
+        }
 
-//        if (!minecraft.options.hideGui) {
-//            ClientPlayerStateManager manager = ClientManager.getPlayerStateManager();
-//            ClientVoicechat client = ClientManager.getClient();
-//            UUID groupId = manager.getGroup(player);
 
-//            if (client != null && client.getTalkCache().isWhispering(player)) {
-//                renderPlayerIcon(player, component, WHISPER_SPEAKER_ICON, stack, vertexConsumers, light);
-//            } else if (client != null && client.getTalkCache().isTalking(player)) {
-//                renderPlayerIcon(player, component, SPEAKER_ICON, stack, vertexConsumers, light);
-//            } else if (manager.isPlayerDisconnected(player)) {
-//                renderPlayerIcon(player, component, DISCONNECT_ICON, stack, vertexConsumers, light);
-//            } else if (groupId != null && !groupId.equals(manager.getGroupID())) {
-//                renderPlayerIcon(player, component, GROUP_ICON, stack, vertexConsumers, light);
-//            } else if (manager.isPlayerDisabled(player)) {
-//                renderPlayerIcon(player, component, SPEAKER_OFF_ICON, stack, vertexConsumers, light);
-//            }
-//        }
+        if (!minecraft.options.hideGui) {
+            ClientPlayerStateManager manager = ClientManager.getPlayerStateManager();
+            ClientVoicechat client = ClientManager.getClient();
+            UUID groupId = manager.getGroup(player);
+
+            if (client != null && client.getTalkCache().isWhispering(player)) {
+                renderPlayerIcon(player, component, WHISPER_SPEAKER_ICON, stack, vertexConsumers, light);
+            } else if (client != null && client.getTalkCache().isTalking(player)) {
+                renderPlayerIcon(player, component, SPEAKER_ICON, stack, vertexConsumers, light);
+            } else if (manager.isPlayerDisconnected(player)) {
+                renderPlayerIcon(player, component, DISCONNECT_ICON, stack, vertexConsumers, light);
+            } else if (groupId != null && !groupId.equals(manager.getGroupID())) {
+                renderPlayerIcon(player, component, GROUP_ICON, stack, vertexConsumers, light);
+            } else if (manager.isPlayerDisabled(player)) {
+                renderPlayerIcon(player, component, SPEAKER_OFF_ICON, stack, vertexConsumers, light);
+            }
+        }
     }
 
     private void renderPlayerIcon(Player player, Component component, ResourceLocation texture, PoseStack matrixStackIn, MultiBufferSource buffer, int light) {
