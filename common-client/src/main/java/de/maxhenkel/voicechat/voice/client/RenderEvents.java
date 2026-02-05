@@ -112,9 +112,9 @@ public class RenderEvents {
         if (VoicechatClient.CLIENT_CONFIG.hideIcons.get()) {
             return;
         }
-        if (!VoicechatClient.CLIENT_CONFIG.showNametagIcons.get()) {
-            return;
-        }
+//        if (!VoicechatClient.CLIENT_CONFIG.showNametagIcons.get()) {
+//            return;
+//        }
         if (!(entity instanceof Player player)) {
             return;
         }
