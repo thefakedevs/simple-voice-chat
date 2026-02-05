@@ -40,14 +40,12 @@ public class ClientPlayerStateManager {
     private UUID group;
 
     private Map<UUID, PlayerState> states;
-    private boolean serverMuted;
 
     public ClientPlayerStateManager() {
         this.disconnected = true;
         this.group = null;
 
         states = new HashMap<>();
-        serverMuted = false;
 
         ClientServerNetManager.setClientListener(CommonCompatibilityManager.INSTANCE.getNetManager().playerStateChannel, (client, handler, packet) -> {
             states.put(packet.getPlayerState().getUuid(), packet.getPlayerState());
@@ -98,10 +96,6 @@ public class ClientPlayerStateManager {
                 }
             }
             GroupList.update();
-        });
-        ClientServerNetManager.setClientListener(CommonCompatibilityManager.INSTANCE.getNetManager().muteStatusChannel, (client, handler, packet) -> {
-            serverMuted = packet.isMuted();
-            Voicechat.LOGGER.debug("Received server mute status: muted={}", serverMuted);
         });
         ClientCompatibilityManager.INSTANCE.onVoiceChatConnected(this::onVoiceChatConnected);
         ClientCompatibilityManager.INSTANCE.onVoiceChatDisconnected(this::onVoiceChatDisconnected);
@@ -172,14 +166,6 @@ public class ClientPlayerStateManager {
             return true;
         }
         return VoicechatClient.CLIENT_CONFIG.disabled.get();
-    }
-
-    /**
-     * Проверяет, замьючен ли текущий игрок на сервере (серверный мут).
-     * @return true если игрок замьючен сервером
-     */
-    public boolean isServerMuted() {
-        return serverMuted;
     }
 
     public boolean canEnable() {
@@ -272,6 +258,5 @@ public class ClientPlayerStateManager {
 
     public void clearStates() {
         states.clear();
-        serverMuted = false;
     }
 }

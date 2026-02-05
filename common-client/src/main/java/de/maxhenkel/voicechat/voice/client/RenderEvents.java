@@ -31,8 +31,6 @@ public class RenderEvents {
     private static final ResourceLocation SPEAKER_OFF_ICON = new ResourceLocation(Voicechat.MODID, "textures/icons/speaker_off.png");
     private static final ResourceLocation DISCONNECT_ICON = new ResourceLocation(Voicechat.MODID, "textures/icons/disconnected.png");
     private static final ResourceLocation GROUP_ICON = new ResourceLocation(Voicechat.MODID, "textures/icons/group.png");
-    private static final ResourceLocation MUTE_ICON = new ResourceLocation(Voicechat.MODID, "textures/icons/mute.png");
-
 
     private final Minecraft minecraft;
 
@@ -64,8 +62,6 @@ public class RenderEvents {
             renderIcon(guiGraphics, DISCONNECT_ICON);
         } else if (manager.isDisabled()) {
             renderIcon(guiGraphics, SPEAKER_OFF_ICON);
-        } else if (manager.isServerMuted()) {
-            renderIcon(guiGraphics, MUTE_ICON);
         } else if (manager.isMuted() && VoicechatClient.CLIENT_CONFIG.microphoneActivationType.get().equals(MicrophoneActivationType.VOICE)) {
             renderIcon(guiGraphics, MICROPHONE_OFF_ICON);
         } else if (client != null && client.getMicThread() != null) {
